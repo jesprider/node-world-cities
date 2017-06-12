@@ -20,8 +20,6 @@ The database is taken from [geonames.org](http://www.geonames.org).
 The source file `cities15000.txt` contains cities with population more than 15000.
 Fields in that file, which used as an array in index.js are:
 
-The main 'geoname' table has the following fields :
----------------------------------------------------
 | #   | Name              | Description                               |
 |-----|-------------------|-------------------------------------------|
 | 0:  | geonameid         | integer id of record in geonames database |
