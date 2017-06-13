@@ -9,12 +9,12 @@ const result = fs.createWriteStream('./result.json');
  * Min population to filter
  * @type {number}
  */
-const POPULATION_LIMIT = 5000000;
+const POPULATION_LIMIT = 1000000;
 /**
  * Array of country codes, e.g.: ['DE', 'NL']
  * @type {Array}
  */
-const allowedCountryCodes = [];
+const allowedCountryCodes = ['RU'];
 
 let cityCount = 0;
 let linesCount = 0;
@@ -96,6 +96,9 @@ stream
     .pipe(cityMapper)
     .pipe(populationLimit)
     .pipe(countryLimit)
+    .on('end', () => {
+        result.write(']')
+    })
     .pipe(result)
     .on('error', (err) => {
         console.error('Error on writing the file:\n', err);
