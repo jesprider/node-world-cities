@@ -6,7 +6,7 @@ A small starter script helping to pipe your handlers together to filter world's 
 
 ## How to start
 ```bash
-node index.js
+npm start
 ```
 
 ## How to change parameters
