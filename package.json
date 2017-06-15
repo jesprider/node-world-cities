@@ -1,0 +1,29 @@
+{
+  "name": "node-world-cities",
+  "version": "1.0.0",
+  "description": "A small starter script helping to pipe your handlers together to filter world's cities by given parameters.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesprider/node-world-cities.git"
+  },
+  "keywords": [
+    "cities",
+    "world",
+    "cities",
+    "geonames",
+    "population"
+  ],
+  "author": "Roman Alekseev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jesprider/node-world-cities/issues"
+  },
+  "homepage": "https://github.com/jesprider/node-world-cities#readme",
+  "engines": {
+    "node": ">= 6"
+  }
+}

@@ -1,4 +1,3 @@
-console.time('Cities script');
 const fs = require('fs');
 const Transform = require('stream').Transform;
 
@@ -84,6 +83,16 @@ const countryLimit = new Transform({
             callback();
             return;
         }
+
+        this.push(JSON.stringify(city));
+        callback();
+    }
+});
+
+const jsonNormilizer = new Transform({
+    transform(chunk, encoding, callback) {
+        const city = JSON.parse(chunk.toString());
+
         cityCount++;
         if (cityToBeAdded === null) {
             cityToBeAdded = JSON.stringify(city);
@@ -96,6 +105,7 @@ const countryLimit = new Transform({
     }
 });
 
+console.time('Cities script');
 result.write('[\n');
 stream
     .on('error', (err) => {
@@ -105,6 +115,7 @@ stream
     .pipe(cityMapper)
     .pipe(populationLimit)
     .pipe(countryLimit)
+    .pipe(jsonNormilizer)
     .on('end', () => {
         result.write('  ' + cityToBeAdded + '\n]\n')
     })
