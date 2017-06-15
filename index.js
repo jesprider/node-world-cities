@@ -9,12 +9,13 @@ const result = fs.createWriteStream('./result.json');
  * Min population to filter
  * @type {number}
  */
-const POPULATION_LIMIT = 1000000;
+const POPULATION_LIMIT = 5000000;
 /**
  * Array of country codes, e.g.: ['DE', 'NL']
  * @type {Array}
  */
-const allowedCountryCodes = ['RU'];
+const allowedCountryCodes = [];
+let cityToBeAdded = null;
 
 let cityCount = 0;
 let linesCount = 0;
@@ -50,6 +51,7 @@ const cityMapper = new Transform({
         const city = {
             id: parseInt(fields[0], 10),
             name: fields[1],
+            asciiname: fields[2],
             lat: fields[4],
             lng: fields[5],
             countryCode: fields[8],
@@ -83,11 +85,18 @@ const countryLimit = new Transform({
             return;
         }
         cityCount++;
-        this.push(JSON.stringify(city) + ',\n');
+        if (cityToBeAdded === null) {
+            cityToBeAdded = JSON.stringify(city);
+        } else {
+            this.push('  ' + cityToBeAdded + ',\n');
+            cityToBeAdded = JSON.stringify(city)
+        }
+
         callback();
     }
 });
 
+result.write('[\n');
 stream
     .on('error', (err) => {
         console.error('Error on reading the file:\n', err);
@@ -97,7 +106,7 @@ stream
     .pipe(populationLimit)
     .pipe(countryLimit)
     .on('end', () => {
-        result.write(']')
+        result.write('  ' + cityToBeAdded + '\n]\n')
     })
     .pipe(result)
     .on('error', (err) => {
