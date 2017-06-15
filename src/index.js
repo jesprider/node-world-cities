@@ -1,8 +1,9 @@
 const fs = require('fs');
+const path = require('path');
 const Transform = require('stream').Transform;
 
-const stream = fs.createReadStream('./cities15000.txt');
-const result = fs.createWriteStream('./result.json');
+const stream = fs.createReadStream(path.resolve(__dirname, 'cities15000.txt'));
+const result = fs.createWriteStream(path.resolve(__dirname, '../dist/result.json'));
 
 /**
  * Min population to filter
