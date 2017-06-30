@@ -57,7 +57,7 @@ const cityMapper = new Transform({
             countryCode: fields[8],
             population: parseInt(fields[14], 10),
             elevation: parseInt(fields[15], 10) || null,
-            timeZone: fields[16]
+            timeZone: fields[17]
         };
 
         this.push(JSON.stringify(city));
